@@ -36,48 +36,6 @@ const AgeGate: React.FC<{ onVerify: () => void }> = ({ onVerify }) => {
   );
 };
 
-const Navbar: React.FC<{ link: string }> = ({ link }) => {
-  const handleGetStarted = () => {
-    try {
-      if ((window as any).ttq) {
-        (window as any).ttq.track('ClickButton');
-      }
-    } catch (err) {
-      console.error("Pixel error:", err);
-    }
-  };
-
-  return (
-    <nav className="flex items-center justify-between px-5 py-4 bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-[#d2d2d7]/30 supports-[backdrop-filter]:bg-white/60">
-      <div className="flex items-center justify-between w-full max-w-[1200px] mx-auto">
-        <a href={link} className="text-[#1d1d1f] hover:opacity-70 transition-opacity">
-          <svg viewBox="0 0 170 170" width="22" height="22" fill="currentColor">
-            <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.93 7.03-10.17 14.5-18.15 14.5-7.38 0-9.47-4.5-18.24-4.5-8.77 0-11.23 4.5-18.24 4.5-8.1 0-14.23-8.24-19.12-16.14-5.06-8.24-9.39-22.18-9.39-36.93 0-17.7 9.87-27.24 26.69-27.24 7.6 0 13.9 5.3 18.27 5.3 4.37 0 11.83-5.3 20.3-5.3 3.65 0 13.75.52 20.2 9.69-16.89 9.69-13.88 36.33 2.39 40.46zM130.35 67.39c4.02-4.96 6.82-11.85 6.07-18.59-6.07.49-13.3 4.14-17.32 8.95-3.6 4.2-6.85 11.05-6.07 17.6 6.85.53 13.78-3.3 17.32-7.96z"></path>
-          </svg>
-        </a>
-
-        <div className="hidden md:flex items-center gap-8 text-xs text-[#1d1d1f]/80">
-          <a href={link} className="hover:text-black transition-colors">Store</a>
-          <a href={link} className="hover:text-black transition-colors">Mac</a>
-          <a href={link} className="hover:text-black transition-colors">iPad</a>
-          <a href={link} className="hover:text-black transition-colors">iPhone</a>
-          <a href={link} className="hover:text-black transition-colors">Watch</a>
-          <a href={link} className="hover:text-black transition-colors">AirPods</a>
-        </div>
-
-        <div className="flex items-center">
-          <a
-            href={link}
-            onClick={handleGetStarted}
-            className="bg-[#0071e3] text-white px-4 py-1.5 rounded-full text-xs font-medium hover:bg-[#0077ED] transition-colors"
-          >
-            Get Started
-          </a>
-        </div>
-      </div>
-    </nav>
-  );
-};
 
 interface Testimonial {
   title: string;
@@ -268,7 +226,6 @@ export default function AppleLander() {
     <>
       <TikTokPixel pixelId={config.pixelId} />
       <div className="min-h-screen bg-white font-sans antialiased selection:bg-[#0071e3] selection:text-white">
-        <Navbar link={affiliateLink} />
         <main>
           <Hero link={affiliateLink} />
         </main>
