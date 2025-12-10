@@ -252,16 +252,6 @@ const Hero: React.FC<{ link: string }> = ({ link }) => {
   );
 };
 
-const ChatWidget: React.FC = () => {
-  return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <button className="bg-[#d4fc78] text-black p-4 rounded-full shadow-[0_0_20px_rgba(212,252,120,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center group relative border-2 border-transparent hover:border-white">
-        <MessageSquare size={24} fill="black" className="relative z-10" />
-        <span className="absolute right-0 top-0 -mt-1 -mr-1 w-3 h-3 bg-red-500 border-2 border-[#13141b] rounded-full"></span>
-      </button>
-    </div>
-  );
-};
 
 export default function FreecashLander() {
   const [isVerified, setIsVerified] = useState(false);
@@ -289,7 +279,6 @@ export default function FreecashLander() {
         <main>
           <Hero link={affiliateLink} />
         </main>
-        <ChatWidget />
       </div>
     </>
   );

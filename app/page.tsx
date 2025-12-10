@@ -29,7 +29,13 @@ export default function GeneratorPage() {
       return;
     }
 
-    const url = `https://${selectedDomain}/landers/${selectedLander}?source=${encodeURIComponent(source)}`;
+    const shortCode = selectedLanderConfig?.shortCode;
+    if (!shortCode) {
+      alert('Invalid lander configuration');
+      return;
+    }
+
+    const url = `https://${selectedDomain}/${shortCode}?source=${encodeURIComponent(source)}`;
     setGeneratedUrl(url);
 
     navigator.clipboard.writeText(url).then(() => {
