@@ -2,12 +2,15 @@
 
 import { useAffiliateLink } from '@/hooks/useAffiliateLink';
 import { LANDERS } from '@/config/landers';
+import TikTokPixel from '@/components/TikTokPixel';
 
 export default function FreecashLander() {
   const affiliateUrl = useAffiliateLink(LANDERS.freecash.baseAffiliateUrl);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400">
+    <>
+      <TikTokPixel pixelId={LANDERS.freecash.pixelId} />
+      <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400">
       <div className="max-w-4xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="text-center mb-16">
@@ -67,5 +70,6 @@ export default function FreecashLander() {
         </div>
       </div>
     </div>
+    </>
   );
 }

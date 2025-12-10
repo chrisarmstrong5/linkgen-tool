@@ -2,12 +2,15 @@
 
 import { useAffiliateLink } from '@/hooks/useAffiliateLink';
 import { LANDERS } from '@/config/landers';
+import TikTokPixel from '@/components/TikTokPixel';
 
 export default function VenMottLander() {
   const affiliateUrl = useAffiliateLink(LANDERS.venmott.baseAffiliateUrl);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-600 to-purple-700">
+    <>
+      <TikTokPixel pixelId={LANDERS.venmott.pixelId} />
+      <div className="min-h-screen bg-gradient-to-b from-indigo-600 to-purple-700">
       <div className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-16">
           <h1 className="text-6xl font-bold text-white mb-4 drop-shadow-lg">
@@ -59,5 +62,6 @@ export default function VenMottLander() {
         </div>
       </div>
     </div>
+    </>
   );
 }

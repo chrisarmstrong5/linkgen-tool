@@ -2,12 +2,15 @@
 
 import { useAffiliateLink } from '@/hooks/useAffiliateLink';
 import { LANDERS } from '@/config/landers';
+import TikTokPixel from '@/components/TikTokPixel';
 
 export default function PlayfulLander() {
   const affiliateUrl = useAffiliateLink(LANDERS.playful.baseAffiliateUrl);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-cyan-400 to-teal-400">
+    <>
+      <TikTokPixel pixelId={LANDERS.playful.pixelId} />
+      <div className="min-h-screen bg-gradient-to-br from-blue-500 via-cyan-400 to-teal-400">
       <div className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-16">
           <h1 className="text-6xl font-bold text-white mb-4 drop-shadow-lg">
@@ -59,5 +62,6 @@ export default function PlayfulLander() {
         </div>
       </div>
     </div>
+    </>
   );
 }

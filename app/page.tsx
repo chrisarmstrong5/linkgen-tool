@@ -11,6 +11,7 @@ export default function GeneratorPage() {
   const [generatedUrl, setGeneratedUrl] = useState('');
 
   const landers = getAllLanders();
+  const selectedLanderConfig = landers.find(l => l.slug === selectedLander);
 
   const generateAndCopy = () => {
     if (!selectedLander) {
@@ -68,6 +69,25 @@ export default function GeneratorPage() {
                 ))}
               </select>
             </div>
+
+            {/* Pixel Info Display */}
+            {selectedLanderConfig && selectedLanderConfig.pixelId && (
+              <div className="p-4 bg-purple-500/20 border border-purple-500/30 rounded-xl">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                  <p className="text-sm font-semibold text-purple-300">TikTok Pixel Active</p>
+                </div>
+                <p className="text-xs text-gray-300 mb-1">
+                  <span className="font-medium text-purple-200">Pixel Name:</span> {selectedLanderConfig.pixelName}
+                </p>
+                <p className="text-xs text-gray-300">
+                  <span className="font-medium text-purple-200">Pixel ID:</span> {selectedLanderConfig.pixelId}
+                </p>
+                <p className="text-xs text-yellow-300 mt-2">
+                  💡 Use this pixel in your TikTok Ads Manager
+                </p>
+              </div>
+            )}
 
             {/* Source Input */}
             <div>

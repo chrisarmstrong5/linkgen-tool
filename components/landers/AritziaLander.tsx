@@ -2,12 +2,15 @@
 
 import { useAffiliateLink } from '@/hooks/useAffiliateLink';
 import { LANDERS } from '@/config/landers';
+import TikTokPixel from '@/components/TikTokPixel';
 
 export default function AritziaLander() {
   const affiliateUrl = useAffiliateLink(LANDERS.aritzia.baseAffiliateUrl);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white">
+    <>
+      <TikTokPixel pixelId={LANDERS.aritzia.pixelId} />
+      <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white">
       <div className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-16">
           <h1 className="text-6xl font-bold text-rose-900 mb-4">
@@ -59,5 +62,6 @@ export default function AritziaLander() {
         </div>
       </div>
     </div>
+    </>
   );
 }

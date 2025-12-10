@@ -2,12 +2,15 @@
 
 import { useAffiliateLink } from '@/hooks/useAffiliateLink';
 import { LANDERS } from '@/config/landers';
+import TikTokPixel from '@/components/TikTokPixel';
 
 export default function AppleLander() {
   const affiliateUrl = useAffiliateLink(LANDERS.apple.baseAffiliateUrl);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <>
+      <TikTokPixel pixelId={LANDERS.apple.pixelId} />
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-4xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="text-center mb-16">
@@ -62,5 +65,6 @@ export default function AppleLander() {
         </div>
       </div>
     </div>
+    </>
   );
 }
