@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { getAllLanders } from '@/config/landers';
-import { Copy, Check, Link as LinkIcon } from 'lucide-react';
+import { DOMAINS, getDefaultDomain } from '@/config/domains';
+import { Copy, Check, Link as LinkIcon, Globe } from 'lucide-react';
 
 export default function GeneratorPage() {
   const [selectedLander, setSelectedLander] = useState('');
+  const [selectedDomain, setSelectedDomain] = useState(getDefaultDomain());
   const [source, setSource] = useState('');
   const [copied, setCopied] = useState(false);
   const [generatedUrl, setGeneratedUrl] = useState('');
@@ -22,8 +24,12 @@ export default function GeneratorPage() {
       alert('Please enter a traffic source');
       return;
     }
+    if (!selectedDomain) {
+      alert('Please select a domain');
+      return;
+    }
 
-    const url = `${window.location.origin}/landers/${selectedLander}?source=${encodeURIComponent(source)}`;
+    const url = `https://${selectedDomain}/landers/${selectedLander}?source=${encodeURIComponent(source)}`;
     setGeneratedUrl(url);
 
     navigator.clipboard.writeText(url).then(() => {
@@ -65,6 +71,25 @@ export default function GeneratorPage() {
                 {landers.map((lander) => (
                   <option key={lander.slug} value={lander.slug} className="text-gray-900">
                     {lander.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Domain Selection */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-200 mb-2 flex items-center gap-2">
+                <Globe className="w-4 h-4" />
+                Select Domain
+              </label>
+              <select
+                value={selectedDomain}
+                onChange={(e) => setSelectedDomain(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              >
+                {DOMAINS.map((domain) => (
+                  <option key={domain.domain} value={domain.domain} className="text-gray-900">
+                    {domain.name} ({domain.domain})
                   </option>
                 ))}
               </select>
