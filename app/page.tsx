@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getAllLanders } from '@/config/landers';
 import { DOMAINS, getDefaultDomain } from '@/config/domains';
 import { Copy, Check, Link as LinkIcon, Globe } from 'lucide-react';
+import { notFound } from 'next/navigation';
 
 export default function GeneratorPage() {
   const [selectedLander, setSelectedLander] = useState('');
@@ -11,9 +12,35 @@ export default function GeneratorPage() {
   const [source, setSource] = useState('');
   const [copied, setCopied] = useState(false);
   const [generatedUrl, setGeneratedUrl] = useState('');
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   const landers = getAllLanders();
   const selectedLanderConfig = landers.find(l => l.slug === selectedLander);
+
+  // Check if user is accessing from Vercel domain
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      // Allow localhost for development and vercel.app domains for production dashboard
+      const isVercelDomain = hostname.includes('vercel.app') || hostname === 'localhost';
+
+      if (!isVercelDomain) {
+        // Redirect to a random lander or 404
+        window.location.href = '/fc?source=direct';
+      } else {
+        setIsAuthorized(true);
+      }
+    }
+  }, []);
+
+  // Don't render until authorization check is complete
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
 
   const generateAndCopy = () => {
     if (!selectedLander) {
