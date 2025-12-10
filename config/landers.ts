@@ -42,6 +42,13 @@ export const LANDERS: Record<string, LanderConfig> = {
     pixelId: 'D4SBJFBC77U0F897O36G',
     pixelName: 'Venmo Pixel',
   },
+  playfulcanada: {
+    slug: 'playfulcanada',
+    name: 'Playful Canada',
+    baseAffiliateUrl: 'https://glctrk.org/aff_c?offer_id=2957&aff_id=15664',
+    pixelId: 'D4PI1K3C77U6N264VE70',
+    pixelName: 'Playful Pixel',
+  },
 };
 
 export const getLanderBySlug = (slug: string): LanderConfig | undefined => {
