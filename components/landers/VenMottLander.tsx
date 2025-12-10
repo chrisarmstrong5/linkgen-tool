@@ -1,67 +1,156 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import { useAffiliateLink } from '@/hooks/useAffiliateLink';
 import { LANDERS } from '@/config/landers';
 import TikTokPixel from '@/components/TikTokPixel';
 
+const config = LANDERS.venmott;
+
+const Step1: React.FC<{ onContinue: () => void }> = ({ onContinue }) => {
+  return (
+    <div className="step1-card bg-white/95 rounded-3xl p-6 max-w-[420px] w-full shadow-[0_10px_30px_rgba(0,122,255,0.1)] border border-[#eef4ff] z-[2] relative backdrop-blur-[10px] animate-[cardFloat_3s_ease-in-out_infinite]">
+      <div className="text-[1.7rem] font-extrabold text-center mb-4 text-black">Quick Eligibility Check</div>
+
+      <p className="text-[1.1rem] text-center mb-4">
+        Are you at least 18 years old?
+      </p>
+
+      <button
+        className="bg-[#008CFF] text-white border-none py-[1.1rem] px-4 rounded-[50px] font-extrabold text-[1.2rem] w-full cursor-pointer mt-4 text-center shadow-[0_10px_80px_#eef4ff] transition-all duration-300 hover:-translate-y-1"
+        onClick={onContinue}
+      >
+        Yes, Continue →
+      </button>
+    </div>
+  );
+};
+
+const Step2: React.FC<{ link: string }> = ({ link }) => {
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    const duration = 2000;
+    const end = 1000;
+    const startTime = Date.now();
+
+    const animate = () => {
+      const now = Date.now();
+      const progress = Math.min((now - startTime) / duration, 1);
+      const currentValue = progress * end;
+      setCounter(currentValue);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, []);
+
+  const handleSignUpClick = (e: React.MouseEvent) => {
+    if (typeof window !== 'undefined' && (window as any).ttq) {
+      (window as any).ttq.track('ClickButton', {
+        content_name: 'Sign Up Button',
+        content_category: 'CTA'
+      });
+
+      (window as any).ttq.track('InitiateCheckout');
+    }
+  };
+
+  return (
+    <div className="reward-card bg-white/95 rounded-3xl p-6 max-w-[420px] w-full shadow-[0_10px_30px_rgba(0,122,255,0.1)] border border-[#eef4ff] z-[2] relative backdrop-blur-[10px] animate-[cardFloat_3s_ease-in-out_infinite]">
+      <div className="text-center mb-4 pb-4 border-b border-[rgba(0,122,255,0.1)]">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Venmo_Logo.svg/1280px-Venmo_Logo.svg.png"
+          className="w-[200px] block mx-auto"
+          alt="Venmo"
+        />
+      </div>
+
+      <div className="text-[2.5rem] font-bold text-center text-[#008CFF]">
+        <span>$</span>
+        <span>{counter.toFixed(2)}</span>
+      </div>
+      <div className="text-center text-[1.3rem] mb-4 text-black">Instantly sent to you</div>
+
+      <div className="my-5 mx-auto p-4 bg-[rgba(0,122,255,0.05)] rounded-2xl border border-[#008CFF]">
+        <div className="flex items-center gap-3 py-2.5 text-base text-black font-semibold">
+          <span className="bg-[#008CFF] text-white w-7 h-7 rounded-full flex items-center justify-center">1</span>
+          <span>Click the "Sign Up" to start</span>
+        </div>
+        <div className="flex items-center gap-3 py-2.5 text-base text-black font-semibold">
+          <span className="bg-[#008CFF] text-white w-7 h-7 rounded-full flex items-center justify-center">2</span>
+          <span>Provide a valid email adress</span>
+        </div>
+        <div className="flex items-center gap-3 py-2.5 text-base text-black font-semibold">
+          <span className="bg-[#008CFF] text-white w-7 h-7 rounded-full flex items-center justify-center">3</span>
+          <span>Complete 3-5 recommended deals</span>
+        </div>
+        <div className="flex items-center gap-3 py-2.5 text-base text-black font-semibold">
+          <span className="bg-[#008CFF] text-white w-7 h-7 rounded-full flex items-center justify-center">4</span>
+          <span>Start recieving your Venmo payments</span>
+        </div>
+      </div>
+
+      <a
+        href={link}
+        onClick={handleSignUpClick}
+        className="bg-[#008CFF] text-white border-none py-[1.1rem] px-4 rounded-[50px] font-extrabold text-[1.2rem] w-full mt-4 text-center block shadow-[0_10px_80px_#eef4ff] transition-all duration-300 no-underline hover:-translate-y-1"
+      >
+        Sign Up
+      </a>
+    </div>
+  );
+};
+
 export default function VenMottLander() {
-  const affiliateUrl = useAffiliateLink(LANDERS.venmott.baseAffiliateUrl);
+  const [step, setStep] = useState<1 | 2>(1);
+  const affiliateLink = useAffiliateLink(config.baseAffiliateUrl);
+
+  const handleContinue = () => {
+    setStep(2);
+
+    if (typeof window !== 'undefined' && (window as any).ttq) {
+      (window as any).ttq.track('ViewContent');
+    }
+
+    window.scrollTo(0, 0);
+  };
 
   return (
     <>
-      <TikTokPixel pixelId={LANDERS.venmott.pixelId} />
-      <div className="min-h-screen bg-gradient-to-b from-indigo-600 to-purple-700">
-      <div className="max-w-4xl mx-auto px-6 py-16">
-        <div className="text-center mb-16">
-          <h1 className="text-6xl font-bold text-white mb-4 drop-shadow-lg">
-            VenMott
-          </h1>
-          <p className="text-2xl text-white/90 font-medium">
-            The smarter way to send money
-          </p>
-        </div>
+      <TikTokPixel pixelId={config.pixelId} />
+      <div
+        className="bg-black min-h-screen flex items-center justify-center p-5 overflow-hidden text-[#2f3033] font-['-apple-system',_'BlinkMacSystemFont',_'Segoe_UI',_'Roboto',_sans-serif]"
+        style={{ margin: 0, padding: 0, boxSizing: 'border-box' }}
+      >
+        <canvas className="fixed w-full h-full top-0 left-0 z-[1]" id="particles-js" />
 
-        <div className="bg-white rounded-3xl shadow-2xl p-12 mb-8">
-          <div className="text-center">
-            <div className="inline-block p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl mb-6">
-              <svg className="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
-              Send & Receive Money
-            </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Fast, secure payments to friends and family. Sign up now and get started in seconds.
-            </p>
-            <a
-              href={affiliateUrl}
-              className="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-12 py-4 rounded-full transition-all transform hover:scale-105 text-lg shadow-lg"
-            >
-              Sign Up
-            </a>
-          </div>
-        </div>
+        {step === 1 ? (
+          <Step1 onContinue={handleContinue} />
+        ) : (
+          <Step2 link={affiliateLink} />
+        )}
 
-        <div className="grid md:grid-cols-3 gap-6 text-center">
-          <div className="p-6 bg-white/90 rounded-xl backdrop-blur">
-            <div className="text-3xl mb-3">⚡</div>
-            <h3 className="font-bold text-gray-900 mb-2">Instant Transfer</h3>
-            <p className="text-gray-700 text-sm">Send money in seconds</p>
-          </div>
-          <div className="p-6 bg-white/90 rounded-xl backdrop-blur">
-            <div className="text-3xl mb-3">🔒</div>
-            <h3 className="font-bold text-gray-900 mb-2">Secure</h3>
-            <p className="text-gray-700 text-sm">Bank-level encryption</p>
-          </div>
-          <div className="p-6 bg-white/90 rounded-xl backdrop-blur">
-            <div className="text-3xl mb-3">✨</div>
-            <h3 className="font-bold text-gray-900 mb-2">Free to Use</h3>
-            <p className="text-gray-700 text-sm">No hidden fees</p>
-          </div>
-        </div>
+        <style jsx>{`
+          @keyframes cardFloat {
+            0%, 100% {
+              transform: translateY(0);
+            }
+            50% {
+              transform: translateY(-10px);
+            }
+          }
+
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+        `}</style>
       </div>
-    </div>
     </>
   );
 }

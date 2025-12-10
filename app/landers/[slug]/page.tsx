@@ -5,7 +5,6 @@ import AppleLander from '@/components/landers/AppleLander';
 import FreecashLander from '@/components/landers/FreecashLander';
 import AritziaLander from '@/components/landers/AritziaLander';
 import PlayfulLander from '@/components/landers/PlayfulLander';
-import PlayfulCanadaLander from '@/components/landers/PlayfulCanadaLander';
 import VenMottLander from '@/components/landers/VenMottLander';
 
 interface PageProps {
@@ -18,7 +17,7 @@ const LANDER_COMPONENTS: Record<string, React.ComponentType> = {
   freecash: FreecashLander,
   aritzia: AritziaLander,
   playful: PlayfulLander,
-  playfulcanada: PlayfulCanadaLander,
+  playfulcanada: PlayfulLander, // Use same component, different config
   venmott: VenMottLander,
 };
 
