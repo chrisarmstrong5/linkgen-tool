@@ -11,9 +11,16 @@ vercel --prod --yes --token 8dJ3bKiTra9JpCjN37QyoO9R
 ```
 
 ### Project URLs
-- **Production URL:** https://linkgen-tool-p41ldhc9p-jordandonaldosnnnn-7180s-projects.vercel.app
+- **Production URL:** https://linkgen-tool-f018jazwr-jordandonaldosnnnn-7180s-projects.vercel.app
+- **Primary Domain:** https://track.apptime.pro
 - **GitHub Repo:** https://github.com/chrisarmstrong5/linkgen-tool
 - **Vercel Dashboard:** https://vercel.com/jordandonaldosnnnn-7180s-projects/linkgen-tool
+
+### Custom Domains (All Active)
+- **track.apptime.pro** (Primary)
+- **track.appreward.pro**
+- **track.winterhaul.com**
+- **track.phonehaul.com**
 
 ### Quick Deploy Script
 ```bash
@@ -110,24 +117,33 @@ vercel --prod --yes --token 8dJ3bKiTra9JpCjN37QyoO9R
 ## 🎯 Usage
 
 ### Generating Links
-1. Go to the root URL (production domain)
+1. Go to any of your custom domains (e.g., https://track.apptime.pro)
 2. Select a lander from dropdown
-3. See the pixel info displayed automatically
-4. Enter traffic source (e.g., `tiktok-bio`, `fb-ad-1`)
-5. Click "Generate & Copy Link"
-6. Use the pixel ID shown in your TikTok Ads Manager
+3. **Select which domain you want to use** (AppTime Pro, AppReward Pro, WinterHaul, or PhoneHaul)
+4. See the pixel info displayed automatically
+5. Enter traffic source (e.g., `tiktok-bio`, `fb-ad-1`)
+6. Click "Generate & Copy Link"
+7. Use the pixel ID shown in your TikTok Ads Manager
 
 ### Link Format
 ```
-https://your-domain.com/landers/{slug}?source={traffic-source}
+https://{selected-domain}/landers/{slug}?source={traffic-source}
 ```
 
-Example:
+Examples:
 ```
-https://linkgen-tool.vercel.app/landers/apple?source=tiktok-bio
+https://track.apptime.pro/landers/apple?source=tiktok-bio
+https://track.winterhaul.com/landers/freecash?source=fb-ad-1
+https://track.phonehaul.com/landers/playful?source=instagram-story
 ```
 
 The lander will automatically pass the source parameter to the affiliate link.
+
+### Domain Selection
+You can now select which domain to use for your generated links. This allows you to:
+- Use different domains for different traffic sources
+- Test which domains perform better
+- Organize campaigns by domain
 
 ---
 
