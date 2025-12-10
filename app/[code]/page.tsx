@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 import { getLanderByShortCode } from '@/config/landers';
 import AppleLander from '@/components/landers/AppleLander';
 import FreecashLander from '@/components/landers/FreecashLander';
@@ -49,6 +50,42 @@ export default async function ShortCodePage({ params }: PageProps) {
       <LanderContent code={code} />
     </Suspense>
   );
+}
+
+// Generate metadata for each lander
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { code } = await params;
+  const landerConfig = getLanderByShortCode(code);
+
+  if (!landerConfig) {
+    return {
+      title: 'Not Found',
+      description: 'Page not found',
+    };
+  }
+
+  // Extract brand name from lander name (remove "Rewards", "Canada", etc.)
+  let brandName = landerConfig.name.replace(/Rewards?/i, '').trim();
+  brandName = brandName.replace(/Canada/i, '').trim();
+  brandName = brandName.replace(/\(.*?\)/g, '').trim(); // Remove anything in parentheses
+
+  const title = `${brandName} Rewards`;
+  const description = `Get exclusive rewards with ${brandName}. Earn money for completing simple tasks and offers.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  };
 }
 
 // Generate static params for all short codes
