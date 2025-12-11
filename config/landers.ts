@@ -27,7 +27,7 @@ export const LANDERS: Record<string, LanderConfig> = {
   freecash: {
     slug: 'freecash',
     name: 'Freecash',
-    baseAffiliateUrl: 'https://glitchy.go2cloud.org/aff_c?offer_id=3531&aff_id=15664&url_id=185',
+    baseAffiliateUrl: 'https://glitchy.go2cloud.org/aff_c?offer_id=3531&aff_id=15664&url_id=186',
     pixelId: 'D4SBJ43C77U501MAOE30',
     pixelName: 'Freecash Pixel',
     shortCode: 'fc',
